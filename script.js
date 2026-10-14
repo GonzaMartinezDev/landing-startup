@@ -1,3 +1,44 @@
+// La altura puede cambiar cuando el menú pasa a una segunda fila en celulares.
+const encabezado = document.querySelector('header');
+const destinoContacto = document.getElementById('contacto');
+
+function actualizarDesplazamientoAnclas() {
+  const alturaEncabezado = encabezado.getBoundingClientRect().height;
+  document.documentElement.style.setProperty('--alturaEncabezado', `${alturaEncabezado}px`);
+
+  // Contacto también necesita espacio suficiente al final para poder alinearse.
+  const espacioFinalActual = parseFloat(getComputedStyle(document.body).paddingBottom);
+  const alturaContenido = document.documentElement.scrollHeight - espacioFinalActual;
+  const posicionContacto = destinoContacto.getBoundingClientRect().top + window.scrollY;
+  const desplazamientoAnclas = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop);
+  const espacioFinalNecesario = Math.max(
+    0,
+    Math.ceil(window.innerHeight - desplazamientoAnclas - (alturaContenido - posicionContacto)),
+  );
+  document.documentElement.style.setProperty('--espacioFinalAnclas', `${espacioFinalNecesario}px`);
+}
+
+actualizarDesplazamientoAnclas();
+const observadorEncabezado = new ResizeObserver(actualizarDesplazamientoAnclas);
+observadorEncabezado.observe(encabezado);
+observadorEncabezado.observe(destinoContacto.closest('section'));
+window.addEventListener('resize', actualizarDesplazamientoAnclas);
+
+// Al abrir una URL con ancla, alineamos después del layout inicial.
+window.addEventListener('load', async () => {
+  const destinosSecciones = ['#soluciones', '#proceso', '#contacto'];
+  if (!destinosSecciones.includes(window.location.hash)) return;
+
+  await document.fonts.ready;
+  requestAnimationFrame(() => {
+    actualizarDesplazamientoAnclas();
+    document.querySelector(window.location.hash).scrollIntoView({
+      block: 'start',
+      behavior: 'instant',
+    });
+  });
+});
+
 // Ejemplos ilustrativos: no representan proyectos ni resultados de clientes.
 const ejemplos = {
   comercio: {

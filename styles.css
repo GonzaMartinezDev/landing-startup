@@ -1,3 +1,12 @@
+/* Fuente condensada para los títulos numerados de los módulos. */
+@font-face {
+  font-family: "Anton";
+  src: url("assets/fonts/anton-regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Colores y estilos generales */
 :root {
   --paper: #f5f4ee;
@@ -5,6 +14,8 @@
   --muted: #637068;
   --lime: #d8f373;
   --line: #d6dad0;
+  --alturaEncabezado: 0px;
+  --margenAnclas: 12px;
 }
 
 * {
@@ -13,11 +24,13 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 90px;
+  /* Única compensación: los destinos están después del padding de la sección. */
+  scroll-padding-top: calc(var(--alturaEncabezado) + var(--margenAnclas));
 }
 
 body {
   margin: 0;
+  padding-bottom: var(--espacioFinalAnclas, 0px);
   background: var(--paper);
   color: var(--ink);
   font-family: Arial,Helvetica,sans-serif;
@@ -38,6 +51,10 @@ button,a,input,select,textarea {
 
 /* Encabezado y navegación */
 header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--paper);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -123,6 +140,22 @@ nav a:hover {
   display: flex;
   align-items: center;
   gap: 10px;
+}
+
+.tituloModulo {
+  font-family: "Anton", Impact, "Arial Narrow", sans-serif;
+  font-size: clamp(23px, 2vw, 30px);
+  line-height: 1.15;
+  letter-spacing: .6px;
+  font-weight: 400;
+  gap: 14px;
+}
+
+.numeroModulo {
+  flex-shrink: 0;
+  font-size: clamp(40px, 3.5vw, 52px);
+  line-height: 1;
+  color: #506c36;
 }
 
 .dot {
@@ -332,6 +365,11 @@ section {
   padding: 90px 0;
 }
 
+.moduloSoluciones {
+  /* El bloque verde cierra este módulo; Proceso aporta la separación siguiente. */
+  padding-bottom: 0;
+}
+
 .section-head {
   display: flex;
   justify-content: space-between;
@@ -397,18 +435,23 @@ h2 {
 
 /* Ejemplos interactivos */
 .demo-section {
+  margin-top: 28px;
   background: var(--ink);
   color: var(--paper);
   border-radius: 16px;
-  padding: 48px;
+  padding: 32px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 70px;
+  gap: 40px;
 }
 
 .demo-section p {
   color: #c5d0c4;
   font-size: 15px;
+}
+
+.demo-section h2 {
+  margin-top: 23px;
 }
 
 .tabs {
@@ -564,6 +607,109 @@ footer {
   color: var(--muted);
 }
 
+/* En escritorio, Soluciones y sus ejemplos comparten una vista compacta. */
+@media(min-width:851px) {
+  .moduloSoluciones .section-head {
+    margin: 12px 0 20px;
+  }
+
+  .moduloSoluciones .section-head h2 {
+    font-size: 40px;
+  }
+
+  .moduloSoluciones .service {
+    padding: 20px;
+    min-height: 0;
+  }
+
+  .moduloSoluciones .symbol {
+    margin-bottom: 6px;
+  }
+
+  .moduloSoluciones .service h3 {
+    margin: 8px 0;
+  }
+
+  .moduloSoluciones .service p {
+    margin: 8px 0;
+  }
+
+  .moduloSoluciones .demo-section {
+    margin-top: 20px;
+    padding: 18px 24px;
+    gap: 28px;
+  }
+
+  .moduloSoluciones .demo-section h2 {
+    margin-top: 12px;
+    font-size: 32px;
+  }
+
+  .moduloSoluciones .demo-section p {
+    margin: 12px 0;
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  .moduloSoluciones .tabs {
+    margin: 14px 0 0;
+  }
+
+  .moduloSoluciones .example {
+    padding: 18px;
+  }
+
+  .moduloSoluciones .example h3 {
+    margin: 10px 0;
+    font-size: 22px;
+  }
+
+  .moduloSoluciones .example hr {
+    margin: 12px 0;
+  }
+
+  .moduloSoluciones .example .result {
+    margin-bottom: 0;
+  }
+}
+
+/* Más espacio útil en pantallas de escritorio de poca altura. */
+@media(min-width:851px) and (max-height:800px) {
+  .moduloSoluciones .section-head {
+    margin-bottom: 16px;
+  }
+
+  .moduloSoluciones .section-head h2 {
+    font-size: 36px;
+  }
+
+  .moduloSoluciones .service {
+    padding: 16px;
+  }
+
+  .moduloSoluciones .symbol {
+    margin-bottom: 2px;
+    font-size: 22px;
+  }
+
+  .moduloSoluciones .service h3 {
+    font-size: 20px;
+  }
+
+  .moduloSoluciones .demo-section {
+    margin-top: 16px;
+    padding: 16px 20px;
+  }
+
+  .moduloSoluciones .example {
+    padding: 14px;
+  }
+
+  .moduloSoluciones .example h3 {
+    font-size: 20px;
+  }
+}
+
 /* Adaptación a tabletas y celulares */
 @media(max-width:850px) {
   header {
@@ -609,6 +755,7 @@ footer {
     flex-direction: column;
   }
   .demo-section {
+    margin-top: 20px;
     grid-template-columns: 1fr;
     gap: 15px;
     padding: 30px;
@@ -632,9 +779,6 @@ footer {
   nav {
     font-size: 12px;
     gap: 12px;
-  }
-  nav a:nth-child(2) {
-    display: none;
   }
   .brand {
     font-size: 20px;

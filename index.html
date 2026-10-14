@@ -86,8 +86,11 @@
         <b>PyMEs</b>
       </div>
       <!-- Soluciones -->
-      <section id="soluciones">
-        <div class="eyebrow">01 / Qué podemos construir</div>
+      <section class="moduloSoluciones" aria-labelledby="soluciones">
+        <div class="eyebrow tituloModulo" id="soluciones">
+          <span class="numeroModulo">01</span>
+          <span>/ Qué podemos construir</span>
+        </div>
         <div class="section-head">
           <h2>Menos vueltas.<br>Más posibilidades.</h2>
           <p>La tecnología tiene que facilitarte el trabajo. Partimos de tus desafíos para encontrar una solución que tenga sentido.</p>
@@ -112,30 +115,33 @@
             <small>MÁS TIEMPO PARA LO QUE IMPORTA</small>
           </article>
         </div>
-      </section>
-      <!-- Ejemplos ilustrativos por tipo de negocio -->
-      <div class="demo-section">
-        <div>
-          <div class="eyebrow" style="color:var(--lime)">De una necesidad a una solución</div>
-          <h2 style="margin-top:23px">¿Te suena<br>alguna de estas?</h2>
-          <p>Los buenos proyectos empiezan con un problema cotidiano. Explorá algunos ejemplos.</p>
-          <div class="tabs" role="tablist" aria-label="Ejemplos por tipo de negocio">
-            <button role="tab" aria-selected="true" aria-controls="ejemplo" id="comercio" data-case="comercio">Comercio</button>
-            <button role="tab" aria-selected="false" aria-controls="ejemplo" id="servicios" data-case="servicios" tabindex="-1">Servicios</button>
-            <button role="tab" aria-selected="false" aria-controls="ejemplo" id="pyme" data-case="pyme" tabindex="-1">PyME</button>
+        <!-- Ejemplos ilustrativos por tipo de negocio -->
+        <div class="demo-section">
+          <div>
+            <div class="eyebrow" style="color:var(--lime)">De una necesidad a una solución</div>
+            <h2>¿Te suena<br>alguna de estas?</h2>
+            <p>Los buenos proyectos empiezan con un problema cotidiano. Explorá algunos ejemplos.</p>
+            <div class="tabs" role="tablist" aria-label="Ejemplos por tipo de negocio">
+              <button role="tab" aria-selected="true" aria-controls="ejemplo" id="comercio" data-case="comercio">Comercio</button>
+              <button role="tab" aria-selected="false" aria-controls="ejemplo" id="servicios" data-case="servicios" tabindex="-1">Servicios</button>
+              <button role="tab" aria-selected="false" aria-controls="ejemplo" id="pyme" data-case="pyme" tabindex="-1">PyME</button>
+            </div>
+          </div>
+          <div class="example" id="ejemplo" role="tabpanel" aria-labelledby="comercio" tabindex="0">
+            <small>EJEMPLO ILUSTRATIVO</small>
+            <h3 id="case-title">“No sé cuánto stock me queda.”</h3>
+            <p id="case-desc">Las ventas están en un lugar, los pedidos en otro y el inventario en una planilla que siempre queda atrás.</p>
+            <hr>
+            <p class="result" id="case-result">→ Un sistema que conecta ventas y stock, con avisos para reponer a tiempo.</p>
           </div>
         </div>
-        <div class="example" id="ejemplo" role="tabpanel" aria-labelledby="comercio" tabindex="0">
-          <small>EJEMPLO ILUSTRATIVO</small>
-          <h3 id="case-title">“No sé cuánto stock me queda.”</h3>
-          <p id="case-desc">Las ventas están en un lugar, los pedidos en otro y el inventario en una planilla que siempre queda atrás.</p>
-          <hr>
-          <p class="result" id="case-result">→ Un sistema que conecta ventas y stock, con avisos para reponer a tiempo.</p>
-        </div>
-      </div>
+      </section>
       <!-- Proceso de trabajo -->
-      <section id="proceso">
-        <div class="eyebrow">02 / Cómo trabajamos</div>
+      <section aria-labelledby="proceso">
+        <div class="eyebrow tituloModulo" id="proceso">
+          <span class="numeroModulo">02</span>
+          <span>/ Cómo trabajamos</span>
+        </div>
         <div class="section-head">
           <h2>Primero tu negocio.<br>Después, la tecnología.</h2>
           <p>Un proceso cercano, con pasos claros y una primera versión que puedas usar y evaluar.</p>
@@ -159,9 +165,12 @@
         </div>
       </section>
       <!-- Contacto: el formulario prepara un mensaje, pero no lo envía -->
-      <section id="contacto" class="contact">
+      <section class="contact" aria-labelledby="contacto">
         <div>
-          <div class="eyebrow">03 / El próximo paso</div>
+          <div class="eyebrow tituloModulo" id="contacto">
+            <span class="numeroModulo">03</span>
+            <span>/ El próximo paso</span>
+          </div>
           <h2 style="margin-top:25px">Las grandes ideas<br>empiezan con<br>una charla<span style="color:#829b45">.</span>
           </h2>
           <p>No hace falta que sepas de tecnología.<br>Contanos qué querés mejorar y empecemos por ahí.</p>
