@@ -1,6 +1,14 @@
 // La altura puede cambiar cuando el menú pasa a una segunda fila en celulares.
 const encabezado = document.querySelector('header');
 const destinoContacto = document.getElementById('contacto');
+const portada = document.getElementById('inicio');
+
+function actualizarAparienciaEncabezado() {
+  const sigueEnPortada = portada.getBoundingClientRect().bottom > encabezado.getBoundingClientRect().height;
+  encabezado.classList.toggle('sobrePortada', sigueEnPortada);
+}
+
+window.addEventListener('scroll', actualizarAparienciaEncabezado, { passive: true });
 
 function actualizarDesplazamientoAnclas() {
   const alturaEncabezado = encabezado.getBoundingClientRect().height;
@@ -16,6 +24,7 @@ function actualizarDesplazamientoAnclas() {
     Math.ceil(window.innerHeight - desplazamientoAnclas - (alturaContenido - posicionContacto)),
   );
   document.documentElement.style.setProperty('--espacioFinalAnclas', `${espacioFinalNecesario}px`);
+  actualizarAparienciaEncabezado();
 }
 
 actualizarDesplazamientoAnclas();
