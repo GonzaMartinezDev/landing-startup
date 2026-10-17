@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" fill="none">
+  <defs>
+    <filter id="resplandor" x="-50%" y="-150%" width="200%" height="400%">
+      <feGaussianBlur stdDeviation="15"/>
+    </filter>
+    <filter id="halo" x="-25%" y="-100%" width="150%" height="300%">
+      <feGaussianBlur stdDeviation="3"/>
+    </filter>
+    <linearGradient id="azulPetroleo" x1="0" y1="250" x2="1600" y2="750" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#9bdcd4"/>
+      <stop offset=".38" stop-color="#248d96"/>
+      <stop offset=".65" stop-color="#bcf1e2"/>
+      <stop offset="1" stop-color="#175766"/>
+    </linearGradient>
+    <linearGradient id="cobre" x1="0" y1="700" x2="1600" y2="550" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#dc9f68" stop-opacity=".12"/>
+      <stop offset=".48" stop-color="#f5d5ad"/>
+      <stop offset="1" stop-color="#dc9f68" stop-opacity=".5"/>
+    </linearGradient>
+    <path id="ondaPrincipal" d="M-120 290 C220 540 390 740 760 700 S1190 540 1720 705"/>
+    <path id="ondaSecundaria" d="M-150 360 C220 610 470 765 810 710 S1250 590 1730 750"/>
+    <path id="ondaCobre" d="M-150 255 C210 510 385 690 755 663 S1205 528 1730 668"/>
+    <path id="ondaDiagonal" d="M290 1120 C360 710 1020 830 1200 405 S1420 50 1520-150"/>
+  </defs>
+  <g filter="url(#resplandor)" opacity=".6" stroke-width="20">
+    <use href="#ondaPrincipal" stroke="url(#azulPetroleo)"/>
+    <use href="#ondaSecundaria" stroke="#197b8b"/>
+    <use href="#ondaCobre" stroke="url(#cobre)" stroke-width="12" opacity=".5"/>
+    <use href="#ondaDiagonal" stroke="#488c94" opacity=".4"/>
+  </g>
+  <g filter="url(#halo)" opacity=".85" stroke-width="5">
+    <use href="#ondaPrincipal" stroke="url(#azulPetroleo)"/>
+    <use href="#ondaSecundaria" stroke="#57b7ba"/>
+    <use href="#ondaCobre" stroke="url(#cobre)" stroke-width="3"/>
+    <use href="#ondaDiagonal" stroke="#57b7ba" stroke-width="2" opacity=".4"/>
+  </g>
+  <g stroke-width="1.5">
+    <use href="#ondaPrincipal" stroke="#d1f1e9" opacity=".9"/>
+    <use href="#ondaSecundaria" stroke="#7ac2c4" opacity=".65"/>
+    <use href="#ondaCobre" stroke="url(#cobre)" opacity=".9"/>
+    <use href="#ondaDiagonal" stroke="#78aab0" opacity=".25"/>
+    <path d="M-100 850 C370 400 940 590 1430-100" stroke="#41777f" opacity=".14"/>
+    <path d="M-100 880 C340 450 970 640 1470-100" stroke="#dc9f68" opacity=".08"/>
+  </g>
+</svg>
