@@ -25,7 +25,7 @@ window.addEventListener('resize', actualizarDesplazamientoAnclas);
 
 // Al abrir una URL con ancla, alineamos después del layout inicial.
 window.addEventListener('load', async () => {
-  const destinosSecciones = ['#soluciones', '#proceso', '#casos', '#contacto'];
+  const destinosSecciones = ['#soluciones', '#proceso', '#casos', '#contacto', '#nosotros'];
   if (!destinosSecciones.includes(window.location.hash)) return;
 
   await document.fonts.ready;
@@ -55,6 +55,16 @@ const ejemplos = {
     descripcion: 'Cada área usa su propia herramienta y actualizar los datos termina siendo un trabajo manual.',
     resultado: '→ Integraciones que conectan tus herramientas y un panel para consultar la información.',
   },
+  profesionales: {
+    titulo: '“Tengo la información de cada cliente dispersa.”',
+    descripcion: 'Entre notas, archivos y mensajes, cuesta seguir cada caso y recordar los próximos pasos.',
+    resultado: '→ Un espacio para organizar clientes, documentos y tareas pendientes.',
+  },
+  emprendedores: {
+    titulo: '“Mi emprendimiento crece y no llego a todo.”',
+    descripcion: 'Los pedidos llegan por distintos canales y organizar cobros y entregas empieza a llevar demasiado tiempo.',
+    resultado: '→ Un panel simple para reunir pedidos, pagos y entregas, y acompañar el crecimiento.',
+  },
 };
 
 const pestanas = [...document.querySelectorAll('[data-case]')];
@@ -67,7 +77,7 @@ const preferenciaMovimiento = window.matchMedia('(prefers-reduced-motion: reduce
 
 // Una ráfaga de la rueda equivale a un módulo, incluso con inercia del trackpad.
 // El desplazamiento táctil, el teclado y la barra lateral siguen siendo libres.
-const destinosModulos = ['inicio', 'soluciones', 'proceso', 'contacto']
+const destinosModulos = ['inicio', 'soluciones', 'proceso', 'contacto', 'nosotros']
   .map((identificador) => document.getElementById(identificador));
 let navegacionEnCurso = false;
 let ultimoGestoRueda = 0;
@@ -300,7 +310,15 @@ const enlaceEmail = document.getElementById('contactoEmail');
 const canalWhatsapp = enlaceWhatsapp.href;
 const canalEmail = enlaceEmail.href;
 
-// Solo preparamos el mensaje. No enviamos ni guardamos consultas.
+function abrirCanalConsulta(destino) {
+  if (destino.startsWith('mailto:')) {
+    window.location.assign(destino);
+    return;
+  }
+  window.open(destino, '_blank', 'noopener,noreferrer');
+}
+
+// Preparamos el mensaje y abrimos el canal. El envío se confirma en su aplicación.
 function prepararConsulta(evento) {
   evento.preventDefault();
 
@@ -311,7 +329,11 @@ function prepararConsulta(evento) {
   const mensajeCodificado = encodeURIComponent(mensajeConsulta.value);
   enlaceWhatsapp.href = `${canalWhatsapp}?text=${mensajeCodificado}`;
   enlaceEmail.href = `${canalEmail}?subject=${encodeURIComponent("Consulta para Comodoro Dev's")}&body=${mensajeCodificado}`;
-  estadoConsulta.textContent = 'Tu consulta está lista. Podés copiarla; todavía no se envió.';
+  const usarCorreo = evento.submitter?.value === 'email';
+  estadoConsulta.textContent = usarCorreo
+    ? 'Tu consulta está lista para abrir en tu aplicación de correo. Confirmá el envío allí. Si no se abre, podés copiar el mensaje.'
+    : 'Tu consulta está lista para abrir en WhatsApp. Confirmá el envío allí. Si no se abre, podés copiar el mensaje.';
+  abrirCanalConsulta(usarCorreo ? enlaceEmail.href : enlaceWhatsapp.href);
 }
 
 async function copiarConsulta() {
