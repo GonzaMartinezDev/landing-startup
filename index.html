@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="description" content="Conectamos tecnología y pequeños y medianos negocios. Software a medida, automatización y herramientas para trabajar mejor.">
+    <meta name="description" content="Tecnología para pequeños, medianos y grandes negocios. Software a medida, automatización y herramientas para trabajar mejor.">
     <title>Comodoro Dev's — Tecnología que entiende tu negocio</title>
     <link rel="stylesheet" href="styles.css">
   </head>
@@ -18,7 +18,6 @@
         <a href="#proceso">Cómo trabajamos</a>
         <a href="#contacto">Contacto</a>
       </nav>
-      <a class="btn header-cta" href="#contacto">Hablemos de tu negocio ↗</a>
     </header>
     <main>
       <!-- Portada: una primera pantalla completa, con un único llamado principal. -->
@@ -26,18 +25,12 @@
         <img class="lucesPortada" src="assets/portada-luces.svg" alt="" aria-hidden="true" width="1600" height="1000" fetchpriority="high">
         <div class="contenidoPortada">
           <p class="etiquetaPortada"><span aria-hidden="true"></span>Tecnología para negocios reales</p>
-          <h1 id="tituloPortada">Software que conecta<br><span>con tu negocio.</span></h1>
-          <p class="descripcionPortada">Convertimos tus ideas y desafíos cotidianos en herramientas digitales para ordenar, automatizar y crecer.</p>
+          <h1 id="tituloPortada">Tu negocio tiene potencial.<br><span>Conectémoslo.</span></h1>
+          <p class="descripcionPortada">Convertimos tus ideas y desafíos cotidianos en herramientas digitales para <strong>ordenar, automatizar y crecer.</strong></p>
           <a class="btn botonPortada" href="#contacto">Hablemos de tu proyecto <span aria-hidden="true">↗</span></a>
-          <a class="enlacePortada" href="#soluciones">Conocé nuestras soluciones <span aria-hidden="true">↓</span></a>
-          <ul class="tecnologiasPortada" aria-label="Tecnologías con las que trabajamos">
-            <li><span aria-hidden="true">⌘</span> Angular</li>
-            <li><span aria-hidden="true">{ }</span> NestJS</li>
-            <li><span aria-hidden="true">◈</span> PostgreSQL</li>
-          </ul>
         </div>
         <div class="piePortada">
-          <p>Software a medida.<br><strong>Para pequeños y medianos negocios.</strong></p>
+          <p>Software a medida.<br><strong>Para pequeños, medianos y grandes negocios.</strong></p>
           <a class="deslizarPortada" href="#soluciones"><span aria-hidden="true">↓</span> Explorá lo que podemos construir</a>
           <div class="contactosPortada">
             <a href="https://wa.me/542804206653" target="_blank" rel="noopener noreferrer">WhatsApp: +54 280 4206653 ↗</a>
@@ -57,50 +50,49 @@
           <b>PyMEs</b>
         </div>
         <!-- Soluciones -->
-        <section class="moduloSoluciones" aria-labelledby="soluciones">
+        <section class="moduloSoluciones" aria-labelledby="tituloSoluciones">
           <div class="eyebrow tituloModulo" id="soluciones">
             <span class="numeroModulo">01</span>
             <span>/ Qué podemos construir</span>
           </div>
           <div class="section-head">
-            <h2>Menos vueltas.<br>Más posibilidades.</h2>
+            <h2 id="tituloSoluciones">Menos vueltas.<br>Más posibilidades.</h2>
             <p>La tecnología tiene que facilitarte el trabajo. Partimos de tus desafíos para encontrar una solución que tenga sentido.</p>
           </div>
           <div class="services">
             <article class="service">
               <span class="symbol" aria-hidden="true">⌘</span>
               <h3>Software a tu medida</h3>
-              <p>Centralizá pedidos, clientes, turnos o stock en un sistema diseñado alrededor de tu forma de trabajar.</p>
-              <small>HERRAMIENTAS QUE SE ADAPTAN A VOS</small>
+              <p>Unificá pedidos, clientes, turnos y stock en un sistema que se adapta a vos.</p>
             </article>
             <article class="service">
               <span class="symbol" aria-hidden="true">↗</span>
               <h3>Tu negocio, online</h3>
-              <p>Una web, un catálogo o una plataforma para mostrar lo que hacés y facilitar el contacto con tus clientes.</p>
-              <small>UN NUEVO PUNTO DE ENCUENTRO</small>
+              <p>Una web, un catálogo o una plataforma para mostrar lo que hacés y conectar con tus clientes.</p>
             </article>
             <article class="service">
               <span class="symbol" aria-hidden="true">⇄</span>
               <h3>Procesos conectados</h3>
-              <p>Integrá tus herramientas y automatizá tareas repetitivas para evitar cargar la misma información una y otra vez.</p>
-              <small>MÁS TIEMPO PARA LO QUE IMPORTA</small>
+              <p>Conectá tus herramientas y automatizá tareas para dejar de cargar los mismos datos varias veces.</p>
             </article>
           </div>
           <!-- Ejemplos ilustrativos por tipo de negocio -->
           <div class="demo-section">
             <div>
-              <div class="eyebrow" style="color:var(--lime)">De una necesidad a una solución</div>
-              <h2>¿Te suena<br>alguna de estas?</h2>
+              <div class="eyebrow">De una necesidad a una solución</div>
+              <h3 class="tituloEjemplos">¿Te suena alguna de estas?</h3>
               <p>Los buenos proyectos empiezan con un problema cotidiano. Explorá algunos ejemplos.</p>
-              <div class="tabs" role="tablist" aria-label="Ejemplos por tipo de negocio">
-                <button role="tab" aria-selected="true" aria-controls="ejemplo" id="comercio" data-case="comercio">Comercio</button>
-                <button role="tab" aria-selected="false" aria-controls="ejemplo" id="servicios" data-case="servicios" tabindex="-1">Servicios</button>
-                <button role="tab" aria-selected="false" aria-controls="ejemplo" id="pyme" data-case="pyme" tabindex="-1">PyME</button>
+              <div class="controlesEjemplos">
+                <div class="tabs" role="tablist" aria-label="Ejemplos por tipo de negocio">
+                  <button role="tab" aria-selected="true" aria-controls="ejemplo" id="comercio" data-case="comercio">Comercio</button>
+                  <button role="tab" aria-selected="false" aria-controls="ejemplo" id="servicios" data-case="servicios" tabindex="-1">Servicios</button>
+                  <button role="tab" aria-selected="false" aria-controls="ejemplo" id="pyme" data-case="pyme" tabindex="-1">PyME</button>
+                </div>
               </div>
             </div>
-            <div class="example" id="ejemplo" role="tabpanel" aria-labelledby="comercio" tabindex="0">
+            <div class="example" id="ejemplo" role="tabpanel" aria-labelledby="comercio" aria-live="off" aria-atomic="true" tabindex="0">
               <small>EJEMPLO ILUSTRATIVO</small>
-              <h3 id="case-title">“No sé cuánto stock me queda.”</h3>
+              <h4 id="case-title">“No sé cuánto stock me queda.”</h4>
               <p id="case-desc">Las ventas están en un lugar, los pedidos en otro y el inventario en una planilla que siempre queda atrás.</p>
               <hr>
               <p class="result" id="case-result">→ Un sistema que conecta ventas y stock, con avisos para reponer a tiempo.</p>
@@ -108,13 +100,13 @@
           </div>
         </section>
         <!-- Proceso de trabajo -->
-        <section aria-labelledby="proceso">
+        <section class="moduloProceso" aria-labelledby="tituloProceso">
           <div class="eyebrow tituloModulo" id="proceso">
             <span class="numeroModulo">02</span>
             <span>/ Cómo trabajamos</span>
           </div>
           <div class="section-head">
-            <h2>Primero tu negocio.<br>Después, la tecnología.</h2>
+            <h2 id="tituloProceso">Primero tu negocio.<br>Después, la tecnología.</h2>
             <p>Un proceso cercano, con pasos claros y una primera versión que puedas usar y evaluar.</p>
           </div>
           <div class="steps">
@@ -134,15 +126,72 @@
               <p>Desarrollamos, probamos con vos y ajustamos la solución para el uso real de tu negocio.</p>
             </article>
           </div>
+          <!-- Negocios ficticios: propuestas ilustrativas, no clientes ni trabajos realizados. -->
+          <div class="moduloCasos" role="group" aria-labelledby="tituloCasos">
+            <div class="section-head" id="casos">
+              <h2 id="tituloCasos">Casos de éxito</h2>
+            </div>
+            <div class="ventanaCasos" tabindex="0" role="region" aria-label="Ejemplos de soluciones para cinco negocios ficticios. Usá las flechas para recorrerlos.">
+              <div class="cintaCasos">
+                <ul class="grupoCasos">
+                  <li class="tarjetaCaso">
+                    <img class="imagenCaso" src="assets/casos/almacen-realista.webp" alt="Imagen ilustrativa realista de un almacén de barrio" width="480" height="240" loading="lazy" decoding="async">
+                    <h3>Almacén La Esquina</h3>
+                    <p>Un almacén de barrio que vende alimentos y productos de todos los días.</p>
+                    <h4>El desafío</h4>
+                    <p>Llevar las ventas y las existencias en anotaciones separadas.</p>
+                    <h4>Solución propuesta</h4>
+                    <p>Un sistema de ventas y stock con avisos para reponer mercadería.</p>
+                  </li>
+                  <li class="tarjetaCaso">
+                    <img class="imagenCaso" src="assets/casos/estudio-realista.webp" alt="Imagen ilustrativa realista de un estudio de entrenamiento" width="480" height="240" loading="lazy" decoding="async">
+                    <h3>Estudio Movimiento</h3>
+                    <p>Un espacio que ofrece clases de pilates y entrenamiento en grupos pequeños.</p>
+                    <h4>El desafío</h4>
+                    <p>Coordinar cupos, cambios y reservas por mensajes sueltos.</p>
+                    <h4>Solución propuesta</h4>
+                    <p>Una agenda online con reservas, cupos por clase y recordatorios.</p>
+                  </li>
+                  <li class="tarjetaCaso">
+                    <img class="imagenCaso" src="assets/casos/cocina-realista.webp" alt="Imagen ilustrativa realista de una vianda con alimentos" width="480" height="240" loading="lazy" decoding="async">
+                    <h3>Cocina del Sur</h3>
+                    <p>Un emprendimiento de viandas caseras con pedidos y entregas programadas.</p>
+                    <h4>El desafío</h4>
+                    <p>Reunir pedidos, preferencias y direcciones desde distintos chats.</p>
+                    <h4>Solución propuesta</h4>
+                    <p>Un catálogo con pedidos online y un panel para organizar las entregas.</p>
+                  </li>
+                  <li class="tarjetaCaso">
+                    <img class="imagenCaso" src="assets/casos/taller-realista.webp" alt="Imagen ilustrativa realista de un vehículo en un taller" width="480" height="240" loading="lazy" decoding="async">
+                    <h3>Taller Horizonte</h3>
+                    <p>Un taller que realiza mantenimiento y reparación de vehículos.</p>
+                    <h4>El desafío</h4>
+                    <p>Consultar presupuestos y avances de trabajos en papeles dispersos.</p>
+                    <h4>Solución propuesta</h4>
+                    <p>Órdenes digitales con historial de cada vehículo y estado de reparación.</p>
+                  </li>
+                  <li class="tarjetaCaso">
+                    <img class="imagenCaso" src="assets/casos/distribuidora-realista.webp" alt="Imagen ilustrativa realista de un camión de reparto y cajas" width="480" height="240" loading="lazy" decoding="async">
+                    <h3>Distribuidora Faro</h3>
+                    <p>Un negocio que abastece a comercios con productos de limpieza.</p>
+                    <h4>El desafío</h4>
+                    <p>Volver a cargar los mismos pedidos en ventas, depósito y reparto.</p>
+                    <h4>Solución propuesta</h4>
+                    <p>Un flujo conectado para compartir pedidos y seguir su preparación.</p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </section>
         <!-- Contacto: el formulario prepara un mensaje, pero no lo envía -->
-        <section class="contact" aria-labelledby="contacto">
+        <section class="contact" aria-labelledby="tituloContacto">
           <div>
             <div class="eyebrow tituloModulo" id="contacto">
               <span class="numeroModulo">03</span>
               <span>/ El próximo paso</span>
             </div>
-            <h2 style="margin-top:25px">Las grandes ideas<br>empiezan con<br>una charla<span style="color:#829b45">.</span>
+            <h2 id="tituloContacto">Las grandes ideas<br>empiezan con<br>una charla<span class="puntoMarca">.</span>
             </h2>
             <p>No hace falta que sepas de tecnología.<br>Contanos qué querés mejorar y empecemos por ahí.</p>
           </div>
@@ -173,12 +222,12 @@
             <textarea id="mensaje" aria-label="Consulta preparada para copiar" hidden readonly></textarea>
             <button class="btn light" type="button" id="copiar" hidden>Copiar consulta</button>
           </form>
+          <footer>
+            <a class="brand" href="#inicio">Comodoro Dev's<span class="puntoMarca">.</span></a>
+            <span>Tecnología cercana. Soluciones con sentido.</span>
+            <span>© 2026 · Comodoro Dev's</span>
+          </footer>
         </section>
-        <footer>
-          <a class="brand" href="#inicio" style="font-size:18px">Comodoro Dev's.</a>
-          <span>Tecnología cercana. Soluciones con sentido.</span>
-          <span>© 2026 · Comodoro Dev's</span>
-        </footer>
       </div>
     </main>
     <script src="script.js" defer></script>

@@ -14,16 +14,6 @@ function actualizarDesplazamientoAnclas() {
   const alturaEncabezado = encabezado.getBoundingClientRect().height;
   document.documentElement.style.setProperty('--alturaEncabezado', `${alturaEncabezado}px`);
 
-  // Contacto también necesita espacio suficiente al final para poder alinearse.
-  const espacioFinalActual = parseFloat(getComputedStyle(document.body).paddingBottom);
-  const alturaContenido = document.documentElement.scrollHeight - espacioFinalActual;
-  const posicionContacto = destinoContacto.getBoundingClientRect().top + window.scrollY;
-  const desplazamientoAnclas = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop);
-  const espacioFinalNecesario = Math.max(
-    0,
-    Math.ceil(window.innerHeight - desplazamientoAnclas - (alturaContenido - posicionContacto)),
-  );
-  document.documentElement.style.setProperty('--espacioFinalAnclas', `${espacioFinalNecesario}px`);
   actualizarAparienciaEncabezado();
 }
 
@@ -35,7 +25,7 @@ window.addEventListener('resize', actualizarDesplazamientoAnclas);
 
 // Al abrir una URL con ancla, alineamos después del layout inicial.
 window.addEventListener('load', async () => {
-  const destinosSecciones = ['#soluciones', '#proceso', '#contacto'];
+  const destinosSecciones = ['#soluciones', '#proceso', '#casos', '#contacto'];
   if (!destinosSecciones.includes(window.location.hash)) return;
 
   await document.fonts.ready;
@@ -72,6 +62,97 @@ const panelEjemplo = document.getElementById('ejemplo');
 const tituloEjemplo = document.getElementById('case-title');
 const descripcionEjemplo = document.getElementById('case-desc');
 const resultadoEjemplo = document.getElementById('case-result');
+const grupoEjemplos = panelEjemplo.closest('.demo-section');
+const preferenciaMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+// Una ráfaga de la rueda equivale a un módulo, incluso con inercia del trackpad.
+// El desplazamiento táctil, el teclado y la barra lateral siguen siendo libres.
+const destinosModulos = ['inicio', 'soluciones', 'proceso', 'contacto']
+  .map((identificador) => document.getElementById(identificador));
+let navegacionEnCurso = false;
+let ultimoGestoRueda = 0;
+
+function obtenerPosicionModulo(destino) {
+  if (destino === portada) return 0;
+  const compensacion = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop);
+  const limite = document.documentElement.scrollHeight - window.innerHeight;
+  return Math.max(0, Math.min(limite, destino.getBoundingClientRect().top + window.scrollY - compensacion));
+}
+
+function desplazarAModulo(destino) {
+  const posicionDestino = obtenerPosicionModulo(destino);
+  const inicioDesplazamiento = performance.now();
+  navegacionEnCurso = true;
+  history.replaceState(history.state, '', `#${destino.id}`);
+  window.scrollTo({
+    top: posicionDestino,
+    behavior: preferenciaMovimiento.matches ? 'instant' : 'smooth',
+  });
+
+  function esperarFinGesto() {
+    const tiempoActual = performance.now();
+    const terminoDesplazamiento = Math.abs(window.scrollY - posicionDestino) < 2
+      || tiempoActual - inicioDesplazamiento > 1800;
+    if (terminoDesplazamiento && tiempoActual - ultimoGestoRueda > 240) {
+      navegacionEnCurso = false;
+      return;
+    }
+    window.setTimeout(esperarFinGesto, 80);
+  }
+  esperarFinGesto();
+}
+
+function navegarConRueda(evento) {
+  if (evento.ctrlKey || evento.metaKey || !evento.deltaY
+    || Math.abs(evento.deltaX) > Math.abs(evento.deltaY)
+    || evento.target.closest('input, textarea, select, [contenteditable]')) return;
+
+  ultimoGestoRueda = performance.now();
+  if (navegacionEnCurso) {
+    evento.preventDefault();
+    return;
+  }
+
+  const posiciones = destinosModulos.map(obtenerPosicionModulo);
+  let indiceActual = 0;
+  posiciones.forEach((posicion, indice) => {
+    if (posicion <= window.scrollY + 4) indiceActual = indice;
+  });
+  const baja = evento.deltaY > 0;
+  const destinoActual = destinosModulos[indiceActual];
+  const seccionActual = destinoActual.closest('section');
+  const ultimoContenido = seccionActual.lastElementChild.getBoundingClientRect().bottom;
+  const alturaDisponible = window.innerHeight
+    - parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop);
+  const alturaContenido = ultimoContenido + window.scrollY
+    - (destinoActual.getBoundingClientRect().top + window.scrollY);
+
+  // En pantallas bajas o móviles, permitimos leer todo el módulo antes de avanzar.
+  if (baja && (indiceActual === destinosModulos.length - 1
+    || (alturaContenido > alturaDisponible && ultimoContenido > window.innerHeight + 4))) return;
+
+  const indiceDestino = baja ? indiceActual + 1
+    : (window.scrollY > posiciones[indiceActual] + 4 ? indiceActual : indiceActual - 1);
+  if (indiceDestino < 0 || indiceDestino >= destinosModulos.length) return;
+  evento.preventDefault();
+  desplazarAModulo(destinosModulos[indiceDestino]);
+}
+
+window.addEventListener('wheel', navegarConRueda, { passive: false });
+
+// Una copia visual completa el ciclo sin repetir contenido para lectores de pantalla.
+const cintaCasos = document.querySelector('.cintaCasos');
+const copiaCasos = cintaCasos.querySelector('.grupoCasos').cloneNode(true);
+copiaCasos.setAttribute('aria-hidden', 'true');
+copiaCasos.inert = true;
+cintaCasos.append(copiaCasos);
+
+const intervaloRotacion = 2000;
+let ejemplosVisibles = false;
+let punteroSobreEjemplos = false;
+let focoDentroEjemplos = false;
+let temporizadorRotacion;
+let animacionEjemplo;
 
 function seleccionarEjemplo(pestanaSeleccionada) {
   pestanas.forEach((pestana) => {
@@ -85,6 +166,15 @@ function seleccionarEjemplo(pestanaSeleccionada) {
   descripcionEjemplo.textContent = ejemplo.descripcion;
   resultadoEjemplo.textContent = ejemplo.resultado;
   panelEjemplo.setAttribute('aria-labelledby', pestanaSeleccionada.id);
+
+  animacionEjemplo?.cancel();
+  if (!preferenciaMovimiento.matches) {
+    animacionEjemplo = panelEjemplo.animate(
+      [{ opacity: .65 }, { opacity: 1 }],
+      { duration: 220, easing: 'ease-out' },
+    );
+  }
+  actualizarRotacion();
 }
 
 function navegarPestanas(evento, indiceActual) {
@@ -116,6 +206,90 @@ pestanas.forEach((pestana, indice) => {
   pestana.addEventListener('click', () => seleccionarEjemplo(pestana));
   pestana.addEventListener('keydown', (evento) => navegarPestanas(evento, indice));
 });
+
+function actualizarRotacion() {
+  window.clearTimeout(temporizadorRotacion);
+  const puedeRotar = !preferenciaMovimiento.matches && ejemplosVisibles && !document.hidden
+    && !punteroSobreEjemplos && !focoDentroEjemplos;
+
+  panelEjemplo.setAttribute('aria-live', puedeRotar ? 'off' : 'polite');
+
+  if (!puedeRotar) return;
+
+  temporizadorRotacion = window.setTimeout(() => {
+    const indiceActual = pestanas.findIndex((pestana) => pestana.getAttribute('aria-selected') === 'true');
+    seleccionarEjemplo(pestanas[(indiceActual + 1) % pestanas.length]);
+  }, intervaloRotacion);
+}
+
+grupoEjemplos.addEventListener('pointerenter', (evento) => {
+  if (evento.pointerType !== 'mouse') return;
+  punteroSobreEjemplos = true;
+  actualizarRotacion();
+});
+
+grupoEjemplos.addEventListener('pointerleave', () => {
+  punteroSobreEjemplos = false;
+  actualizarRotacion();
+});
+
+grupoEjemplos.addEventListener('focusin', () => {
+  focoDentroEjemplos = true;
+  actualizarRotacion();
+});
+
+grupoEjemplos.addEventListener('focusout', (evento) => {
+  if (grupoEjemplos.contains(evento.relatedTarget)) return;
+  focoDentroEjemplos = false;
+  actualizarRotacion();
+});
+
+document.addEventListener('visibilitychange', actualizarRotacion);
+preferenciaMovimiento.addEventListener('change', () => {
+  animacionEjemplo?.cancel();
+  actualizarRotacion();
+});
+
+const observadorRotacion = new IntersectionObserver(([entrada]) => {
+  ejemplosVisibles = entrada.isIntersecting && entrada.intersectionRatio >= .25;
+  actualizarRotacion();
+}, { threshold: [0, .25] });
+observadorRotacion.observe(grupoEjemplos);
+
+// Reservar el alto del ejemplo más largo evita que el contenido salte al rotar.
+function ajustarAlturaEjemplos() {
+  const panelMedicion = panelEjemplo.cloneNode(true);
+  panelMedicion.removeAttribute('id');
+  panelMedicion.removeAttribute('role');
+  panelMedicion.removeAttribute('aria-labelledby');
+  panelMedicion.setAttribute('aria-hidden', 'true');
+  panelMedicion.inert = true;
+  panelMedicion.querySelectorAll('[id]').forEach((elemento) => elemento.removeAttribute('id'));
+  panelMedicion.style.cssText = `position:fixed;left:-10000px;top:0;visibility:hidden;pointer-events:none;height:auto;min-height:0;width:${panelEjemplo.getBoundingClientRect().width}px`;
+  grupoEjemplos.append(panelMedicion);
+
+  let alturaMaxima = 0;
+  Object.values(ejemplos).forEach((ejemplo) => {
+    panelMedicion.querySelector('h4').textContent = ejemplo.titulo;
+    panelMedicion.querySelector('p').textContent = ejemplo.descripcion;
+    panelMedicion.querySelector('.result').textContent = ejemplo.resultado;
+    alturaMaxima = Math.max(alturaMaxima, panelMedicion.getBoundingClientRect().height);
+  });
+
+  panelMedicion.remove();
+  panelEjemplo.style.minHeight = `${Math.ceil(alturaMaxima)}px`;
+}
+
+let anchoPanelAnterior = 0;
+const observadorAnchoEjemplos = new ResizeObserver(() => {
+  const anchoPanel = panelEjemplo.getBoundingClientRect().width;
+  if (Math.abs(anchoPanel - anchoPanelAnterior) < .5) return;
+  anchoPanelAnterior = anchoPanel;
+  ajustarAlturaEjemplos();
+});
+observadorAnchoEjemplos.observe(panelEjemplo);
+document.fonts.ready.then(ajustarAlturaEjemplos);
+actualizarRotacion();
 
 const formulario = document.getElementById('brief');
 const mensajeConsulta = document.getElementById('mensaje');
